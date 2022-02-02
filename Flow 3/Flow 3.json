@@ -1,0 +1,269 @@
+[
+    {
+        "id": "61f0b46ba627074a",
+        "type": "tab",
+        "label": "Flow 3 - G5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e0d5bb6f8be45227",
+        "type": "mqtt in",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "topic": "codigoIoT/SIC/G5/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ca462e86c2aa4086",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "9247699c02c6026f"
+            ]
+        ]
+    },
+    {
+        "id": "9247699c02c6026f",
+        "type": "json",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "9c570ea4136a106d",
+                "39973e3acd673573",
+                "4b2ca14e1e608dc2",
+                "feab527850cb672f"
+            ]
+        ]
+    },
+    {
+        "id": "783feb0366a649dd",
+        "type": "ui_text",
+        "z": "61f0b46ba627074a",
+        "group": "d504da1996715371",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Ultimo ID",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 760,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c55f5fe5a1c0d1dc",
+        "type": "ui_gauge",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "group": "d504da1996715371",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Ultima temperatura",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-30",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9c570ea4136a106d",
+        "type": "function",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "func": "msg.payload = msg.payload.id;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "783feb0366a649dd"
+            ]
+        ]
+    },
+    {
+        "id": "39973e3acd673573",
+        "type": "function",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "func": "msg.payload = msg.payload.temp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 240,
+        "wires": [
+            [
+                "c55f5fe5a1c0d1dc"
+            ]
+        ]
+    },
+    {
+        "id": "4b2ca14e1e608dc2",
+        "type": "debug",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "655d331f47e67b7c",
+        "type": "ui_chart",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "group": "a2b3ca42395edf2e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Grafica a través del tiempo",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-30",
+        "ymax": "50",
+        "removeOlder": "5",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 820,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "feab527850cb672f",
+        "type": "function",
+        "z": "61f0b46ba627074a",
+        "name": "",
+        "func": "msg.topic = msg.payload.id;\nmsg.payload = msg.payload.temp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "655d331f47e67b7c"
+            ]
+        ]
+    },
+    {
+        "id": "ca462e86c2aa4086",
+        "type": "mqtt-broker",
+        "name": "hivemq",
+        "broker": "35.157.158.119",
+        "port": "1883",
+        "clientid": "hugo-SIC-44454",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d504da1996715371",
+        "type": "ui_group",
+        "name": "Ultimo dato",
+        "tab": "a4b1427fdce439e2",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a2b3ca42395edf2e",
+        "type": "ui_group",
+        "name": "Grafica",
+        "tab": "a4b1427fdce439e2",
+        "order": 2,
+        "disp": true,
+        "width": "18",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a4b1427fdce439e2",
+        "type": "ui_tab",
+        "name": "Flow 3 - G5",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
